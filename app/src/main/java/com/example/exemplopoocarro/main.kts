@@ -2,12 +2,13 @@ package com.example.exemplopoocarro
 
 fun main() {
 
-    val motor = Motor()
-    val fuca = Carro(motor)
+    val motorCombustao = MotorCombustao()
+    val fuca = Carro(motorCombustao)
     fuca.ligar()
     fuca.anda()
 
-    val tesla = Carro(motor)
+    val motorEletrico = MotorEletrico()
+    val tesla = Carro(motorEletrico)
     tesla.ligar()
     tesla.anda()
 }

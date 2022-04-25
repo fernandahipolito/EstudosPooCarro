@@ -1,36 +1,36 @@
 package com.example.exemplopoocarro
 
 class Carro (
-    private val motor: Motor
-    ){
-
-    fun ligar() {
-        motor.ligar()
-    }
-
-    fun desligar() {
-        motor.desligar()
-    }
+    private val motorImpl: MotorImpl
+    ): Motor by motorImpl {
+// injeção de dependência com um design pattern de delegate
     fun anda() {
         when {
-            !motor.estaLigado() -> println("Liga o carro primeiro né?")
-            !motor.temCombustivel() -> {
-                println("Coloca combustível né?")
-                desligar()
+            !motorImpl.estaLigado() -> println("Liga o carro primeiro né?")
+            !motorImpl.temAutonomia() -> {
+
+                when(motorImpl) {
+                    is MotorEletrico -> println("Tem que carregar né?")
+                    is MotorCombustao -> println("Coloca combustível né?")
+                }
             }
             else -> {
-                motor.gastandoCombustivel()
-                println("Carro andando:vruuum vruuum")
+                motorImpl.gastando()
+
+                when(motorImpl) { //is faz a verificação do tipo de motor
+                    is MotorEletrico -> println("Carro andando...")
+                    is MotorCombustao -> println("Carro andando:vruuum vruuum")
                 }
             }
         }
     }
+
 
     fun freia() {
         println("Carro freiando")
     }
 
     fun buzina() {
-    println("Carro buzinando")
+        println("Carro buzinando")
     }
 }
